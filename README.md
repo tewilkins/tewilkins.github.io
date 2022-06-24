@@ -1,2 +1,3 @@
-# tewilkins.github.io
-My personal blog
+# The Tom Blog
+
+Get to know me better.

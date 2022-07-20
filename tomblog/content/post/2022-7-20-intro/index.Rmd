@@ -1,0 +1,39 @@
+---
+title: "Fixing Bad Habits: Clean and secure study workflow with GitHub, R Markdown and Zotero"
+author: "Tom"
+date: 2022-07-20
+categories: ["Guides"]
+tags: ["GitHub", "Rstudio", "Zotero", "Study Habits"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+## 
+
+Data loss can be catastrophic for an individual or organisation.
+In a post-COVID workplace where researchers work frequently from home, data loss on physical drives can occur more often as devices move between workplace and home - either through server sync issues, physical hardware damage or improper version control.
+\n
+
+Fortunately, it is avoided quite easily if your workflow incorporates some basic data hygiene practices.
+In the context of day-to-day workflow, 'data hygiene' can mean a lot of things, such as database maintenance, data cleansing or software version control, but in this case I'm talking about secure workflow practices.
+For new PhD students, you'll need secure workflow for the next 3-4 years, at least.
+But realistically you'll need secure workflow for the rest of your working life if you want to Now is the time to start getting it right.
+\n
+
+I'm going to be working with three domains in this guide: Rstudio, GitHub and Zotero.
+These are all open-source and free-to-use for non-commercial purposes.
+
+## A tidy digital workplace
+
+My desk often gets quite messy.
+I have scribbled notes with reminders and study notes scattered everywhere.
+The houseplants on my desk tend to drop their leaves and bits of their soil.
+Piles of books awkwardly gather while my tentative plans to read them drift away.
+I've caught the dishes doing it too.
+Clutter occurs naturally, and is carried out by desk goblins.
+I have to perform a deep-clean on my desk whenever the desk goblin clutter becomes too much for me to work around.
+\n
+
+The same applies to a digital workplace.

@@ -1,0 +1,155 @@
+---
+title: "COVID-19 Rapid Antigen Tests and Bayes' Theorem - are you positive that you're certain that you're positive?"
+author: Tom
+date: '2022-07-28'
+slug: covid19-rapid-antigen-tests-and-bayes-theorem
+categories:
+  - Fluff
+tags:
+  - COVID-19
+  - Rapid Antigen Test
+  - Bayes' Theorem
+type: ''
+subtitle: ''
+image: ''
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+A week ago I went to dinner with a group of friends.
+The next day the person sat opposite me informed me they had tested positive for COVID-19, including a photo of their Rapid Antigen Test (RAT) cassette[^1].
+A few days later I developed a dry throat, fatigue, and brain fog, but also some very concerning some flu-like symptoms... similar to my friend who had just tested positive... oh no!
+Naturally I went overboard on the RATs and performed a test every day for five days.
+To my relief, all five were negative and I concluded it was just a nasty cold.
+
+[^1]: Everyone who attended was okay!
+    My friend recovered well and no one else tested positive from that event.
+
+Was I really going overboard though?
+RAT tests are currently the primary means for identifying positive cases of COVID-19 in Victoria.
+In the last 24 hours before the time of writing this post, [3085 cases were identified via PCR testing and 9069 probable cases via RATs](https://www.coronavirus.vic.gov.au/victorian-coronavirus-covid-19-data).
+That means 3/4 positive cases were identified using RATs.
+
+However, that gives us no information on why anyone would take five RAT tests.
+What kind of maniac would do such a thing?
+And who are we (i.e., you) to judge?
+Well, as it turns out, we can use Bayes' Theorem to work out exactly how much of a maniac that person (i.e., I) might be!
+Clearly I'm worried about the false-negative rate, and
+
+## Bayes' Theorem
+
+Bayes' Theorem describes the probability that an event should occur, given that a condition has (or hasn't) been met.
+
+$Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)}$
+
+$Pr(B)$ is found with the following equation:
+
+$Pr(B) = Pr(B|A)Pr(A) + Pr(D|\bar{A})Pr(\bar{A})$
+
+It applies well to medical screening and defective item testing - the two things I want to know more about.
+There's a few things that were found in Leiner et al. (2021): The specificity (i.e., the True-Positive rate) was 62.3%, and the specificity (i.e., the True-Negative) was 97.6%.
+If we plug these numbers into the formula above, we get the probability that a person is infected with COVID-19 after testing positive on a RAT: \n
+
+```{r}
+# covid bayesian test:
+
+vic_population <- 6740000 # 
+vic_infected <- 69057 # from https://www.coronavirus.vic.gov.au/victorian-coronavirus-covid-19-data
+
+p_infected <- vic_infected/vic_population
+p_positive_infected <- 0.623  # Sensitivity / True Positive
+p_negative_safe <- 0.976      # Specificity / True Negative
+p_positive_safe <- (1-p_negative_safe)  # False Negative
+
+p_positive <- (p_positive_infected*p_infected) + (p_positive_safe*(1-p_infected))
+p_infected_positive <- (p_positive_infected*p_infected)/p_positive
+
+print(paste0(round(p_infected_positive * 100, 2), "%"))
+```
+
+\n
+
+So, the posterior probability that I have contracted COVID-19 after having tested positive is only 21.18%.
+That's... extremely shocking.
+This suggests RAT tests are incorrect about 4 out of 5 times!
+So if I perform 5 RATs, I should expect exactly one of them to have a true positive result, yes?
+And that means my method is not stupid and I'm not a maniac, YES??
+\n
+
+Sadly, no.
+
+```{r}
+# covid bayesian test:
+
+vic_population <- 6740000 # 
+vic_infected <- 69057 # from https://www.coronavirus.vic.gov.au/victorian-coronavirus-covid-19-data
+
+p_infected <- vic_infected/vic_population
+p_positive_infected <- 0.623  # Sensitivity / True Positive
+p_negative_safe <- 0.976      # Specificity / True Negative
+p_positive_safe <- (1-p_negative_safe)  # False Negative
+
+p_positive <- (p_positive_infected*p_infected) + (p_positive_safe*(1-p_infected))
+p_infected_positive <- (p_positive_infected*p_infected)/p_positive
+
+###
+
+p_safe <- (1-p_infected)
+p_negative_infected <- (1-p_positive_infected)  # Sensitivity / True Positive
+
+p_negative <- (p_negative_infected*p_infected) + (p_negative_safe*(1-p_infected))
+p_infected_negative <- (p_negative_infected*p_infected)/p_negative
+
+
+print(paste0(round(p_infected_negative * 100, 2), "%"))
+```
+
+```{r}
+# covid bayesian test:
+
+vic_population <- 6740000 # 
+vic_infected <- 69057 # from https://www.coronavirus.vic.gov.au/victorian-coronavirus-covid-19-data
+
+p_infected <- vic_infected/vic_population
+p_positive_infected <- 0.623  # Sensitivity / True Positive
+p_negative_safe <- 0.976      # Specificity / True Negative
+p_positive_safe <- (1-p_negative_safe)  # False Negative
+
+p_positive <- (p_positive_infected*p_infected) + (p_positive_safe*(1-p_infected))
+p_infected_positive <- (p_positive_infected*p_infected)/p_positive
+
+###
+
+p_safe <- (1-p_infected)
+p_negative_infected <- (1-p_positive_infected)  # Sensitivity / True Positive
+
+p_negative <- (p_negative_infected*p_infected) + (p_negative_safe*(1-p_infected))
+p_safe_negative <- (p_negative_safe*p_safe)/p_negative
+
+
+print(paste0(round(p_safe_negative * 100, 2), "%"))
+```
+
+```{r}
+# covid bayesian test:
+
+vic_population <- 6740000 # 
+vic_infected <- 69057 # from https://www.coronavirus.vic.gov.au/victorian-coronavirus-covid-19-data
+
+p_infected <- vic_infected/vic_population
+p_positive_infected <- 0.623  # Sensitivity / True Positive
+p_positive_infected <- 0.623  # Sensitivity / True Positive
+p_negative_safe <- 0.976      # Specificity / True Negative
+p_positive_safe <- (1-p_negative_safe)  # False Negative
+
+p_positive <- (p_positive_infected*p_infected) + (p_positive_safe*(1-p_infected))
+p_infected_positive <- (p_positive_infected*p_infected)/p_positive
+
+print(paste0(round(p_infected_positive * 100, 2), "%"))
+```
+
+#### False Negatives:
+
+#### False Positives:

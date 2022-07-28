@@ -10,20 +10,27 @@ tags: ["GitHub", "Rstudio", "Zotero", "Study Habits"]
 knitr::opts_chunk$set(collapse = TRUE)
 ```
 
-## 
+## Data Hygiene
 
 Data loss can be catastrophic for an individual or organisation.
 In a post-COVID workplace where researchers work frequently from home, data loss on physical drives can occur more often as devices move between workplace and home - either through server sync issues, physical hardware damage or improper version control.
 \n
 
-Fortunately, it is avoided quite easily if your workflow incorporates some basic data hygiene practices.
+Fortunately, most forms of data loss are avoided quite easily if your workflow incorporates some basic data hygiene practices.
 In the context of day-to-day workflow, 'data hygiene' can mean a lot of things, such as database maintenance, data cleansing or software version control, but in this case I'm talking about secure workflow practices.
 For new PhD students, you'll need secure workflow for the next 3-4 years, at least.
-But realistically you'll need secure workflow for the rest of your working life if you want to Now is the time to start getting it right.
+But realistically you'll need secure workflow for the rest of your working life if - now is a good time to start getting it right.
 \n
 
-I'm going to be working with three domains in this guide: Rstudio, GitHub and Zotero.
-These are all open-source and free-to-use for non-commercial purposes.
+I'm going to be working with three domains in this guide: [RStudio](https://www.rstudio.com/), [GitHub](https://github.com/) and [Zotero](https://www.zotero.org/).
+These are all open-source and/or free-to-use for non-commercial purposes, and they also work very nicely together.
+RStudio is an incredibly powerful open source software for data analysis and computer graphics, and with R markdown becomes a fantastic word processor as well.
+The combination of a built-in Git connector and dedicated Zotero add-in makes document writing with R markdown lightweight, secure and distraction-free.
+
+## Getting Started
+
+If you haven't already done so, install [R](https://cran.rstudio.com/) and [RStudio](https://www.rstudio.com/products/rstudio/download/).
+You will probably need their latest versions to avoid version issues, but any reasonably recent stable version should be fine.
 
 ## A tidy digital workplace
 
